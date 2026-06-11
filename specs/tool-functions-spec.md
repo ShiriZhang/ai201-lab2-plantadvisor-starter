@@ -17,18 +17,20 @@ These two functions are the tools the agent can call. They retrieve structured d
 
 **Inputs:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter    | Type  | Description                                                                                                            |
+| ------------ | ----- | ---------------------------------------------------------------------------------------------------------------------- |
 | `plant_name` | `str` | The plant name as entered by the user or chosen by the LLM — may be any casing, common name, scientific name, or alias |
 
 **Output:** `dict`
 
 When the plant is **found**, return:
+
 ```python
 {"found": True, "plant": <the full plant dict from _plant_db>}
 ```
 
 When the plant is **not found**, return:
+
 ```python
 {"found": False, "name": <normalized input>, "message": <helpful string>}
 ```
@@ -37,7 +39,7 @@ When the plant is **not found**, return:
 
 ### Design Decisions
 
-*Complete the two blank fields below before writing code. The others are pre-filled for you.*
+_Complete the two blank fields below before writing code. The others are pre-filled for you._
 
 ---
 
@@ -67,39 +69,45 @@ likely match for clean user input. Aliases are the broadest net, so they go last
 
 #### Alias matching approach
 
-*Aliases are stored as a list of strings. How will you check if the normalized input matches any alias in the list? Write your approach in pseudocode or plain English.*
+_Aliases are stored as a list of strings. How will you check if the normalized input matches any alias in the list? Write your approach in pseudocode or plain English._
 
 ```
-[your answer here]
+for every plant in database:
+    for every alias in this plant's aliases list:
+        if normalized input == alias.lower():
+            return this plant
 ```
 
 ---
 
 #### Not-found message
 
-*When a plant isn't found, the agent will read your message and use it to decide what to tell the user. Write the exact string you'll return — make it useful to the agent, not just to a human reading logs.*
+_When a plant isn't found, the agent will read your message and use it to decide what to tell the user. Write the exact string you'll return — make it useful to the agent, not just to a human reading logs._
 
 ```
-[your answer here]
+f"No plant named '{???}' was found in the database. Offer general guidance based on the user's description and acknowledge the data gap."
 ```
 
 ---
 
 #### Implementation Notes
 
-*Fill this in after implementing and running the app.*
+_Fill this in after implementing and running the app._
 
 **Test: does `"devil's ivy"` return the pothos entry?**
+
 ```
 [yes / no — if no, describe what happened]
 ```
 
 **Test: does `"SNAKE PLANT"` return the snake plant entry?**
+
 ```
 [yes / no — if no, describe what happened]
 ```
 
 **One edge case you discovered while implementing:**
+
 ```
 [your answer here]
 ```
@@ -112,23 +120,23 @@ likely match for clean user input. Aliases are the broadest net, so they go last
 
 **Inputs:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `season` | `str \| None` | One of `"spring"`, `"summer"`, `"fall"`, `"winter"`, or `None` to auto-detect |
+| Parameter | Type          | Description                                                                   |
+| --------- | ------------- | ----------------------------------------------------------------------------- |
+| `season`  | `str \| None` | One of `"spring"`, `"summer"`, `"fall"`, `"winter"`, or `None` to auto-detect |
 
 **Output:** `dict`
 
 The full season dict from `_season_data`, plus one additional field:
 
-| Added field | Type | Value |
-|-------------|------|-------|
+| Added field         | Type   | Value                                                                               |
+| ------------------- | ------ | ----------------------------------------------------------------------------------- |
 | `"detected_season"` | `bool` | `True` if auto-detected from the month; `False` if season was passed as an argument |
 
 ---
 
 ### Design Decisions
 
-*This function is pre-implemented — read through these fields and the code before working on `lookup_plant`.*
+_This function is pre-implemented — read through these fields and the code before working on `lookup_plant`._
 
 ---
 
@@ -179,9 +187,10 @@ The full season dict from `_season_data`, plus a `detected_season` boolean. Exam
 
 #### Implementation Notes
 
-*Fill this in after testing.*
+_Fill this in after testing._
 
 **Test: does calling with `season=None` return the correct season for the current month?**
+
 ```
 Current month: [month]
 Expected season: [season]
@@ -189,6 +198,7 @@ Returned season: [season]
 ```
 
 **Test: does calling with `season="winter"` return winter data regardless of the current month?**
+
 ```
 [yes / no]
 ```
