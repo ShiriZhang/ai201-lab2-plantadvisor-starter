@@ -65,9 +65,16 @@ def lookup_plant(plant_name: str) -> dict:
                 return {"found": True, "plant": plant}
 
     return {
-        "found": False,
-        "name": plant_name,
-        "message": f"No plant named '{plant_name}' found in the database. Offer general guidance based on the user's description and acknowledge the data gap."
+    "found": False,
+    "name": plant_name,
+    "message": (
+        f"No plant named '{plant_name}' found in the database. "
+        "Do not invent specific care instructions. "
+        "If you can identify the plant's type (e.g. succulent, tropical, fern), "
+        "look up a similar plant from the database to use as a reference. "
+        "Acknowledge to the user that this plant is not in your database "
+        "and clarify which advice comes from similar plants vs general knowledge."
+        )
     }
 
 

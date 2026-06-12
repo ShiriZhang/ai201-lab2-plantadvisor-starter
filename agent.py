@@ -70,9 +70,10 @@ SYSTEM_PROMPT = (
     "and current seasonal conditions using your available tools.\n\n"
     "Always use your tools to look up plant-specific information before answering — "
     "don't rely on your general knowledge alone. If a plant isn't in your database, "
-    "say so clearly and offer general guidance based on what the user describes.\n\n"
-    "Keep your advice practical and specific. Cite the source of your information "
-    "when you have it (e.g., 'According to the care data for your monstera...')."
+    "do not invent specific care instructions from your training data. "
+    "Instead, identify the plant's type and look up a similar plant from the database if possible. "
+    "Always tell the user which information comes from the database "
+    "and which is general guidance.\n\n"
 )
 
 # ──────────────────────────────────────────────
