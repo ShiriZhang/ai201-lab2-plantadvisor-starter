@@ -97,13 +97,13 @@ _Fill this in after implementing and running the app._
 **Test: does `"devil's ivy"` return the pothos entry?**
 
 ```
-[yes / no — if no, describe what happened]
+yes
 ```
 
 **Test: does `"SNAKE PLANT"` return the snake plant entry?**
 
 ```
-[yes / no — if no, describe what happened]
+yes
 ```
 
 **One edge case you discovered while implementing:**
