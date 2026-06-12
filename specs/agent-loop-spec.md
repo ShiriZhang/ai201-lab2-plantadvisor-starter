@@ -133,7 +133,9 @@ _The loop should stop when: (a) the LLM returns a response with no tool calls, O
 _Once the loop exits because there are no more tool calls, how do you extract the text content from the response object? What field holds the string you should return?_
 
 ```
-[your answer here]
+Once the loop exits because there are no more tool calls, the final text is extracted from: assistant_message.content
+where `assistant_message = response.choices[0].message`.
+The full path from the raw response object is: response.choices[0].message.content
 ```
 
 ---
@@ -146,19 +148,32 @@ _Fill this in after implementing and testing._
 
 ```
 Query: "How should I care for my calathea?"
-Round 1 tool call: [tool name, args]
+Round 1 Tool call: lookup_plant({'plant_name': 'calathea'})
 Round 2 tool call: [tool name, args] (if any)
-Final response: [brief description]
+Final response: Based on the database information, to care for your Calathea, you should keep the soil consistently moist but not soggy, and use filtered, distilled, or rainwater to prevent brown edges. Let the water sit overnight if using tap water. The plant prefers low to medium indirect light, and direct sun will bleach and damage the leaf markings. It requires high humidity (50%+), so you can use a humidifier, mist frequently, or group it with other plants. The ideal temperature is between 60-80°F (15-27°C), and it's sensitive to cold drafts and temperatures below 55°F. Fertilize monthly during the growing season with a diluted balanced fertilizer. Some common issues to watch out for include brown leaf edges, leaf curling, and yellowing, which can be caused by tap water minerals, dry air, underwatering, or overwatering.
+
+Please note that Calatheas can be finicky, so it's normal for them to require some adjustment time in a new home. If you have any further questions or concerns, feel free to ask!
 ```
 
 **What happens when you ask about a plant that isn't in the database?**
 
 ```
-[describe the behavior you observed]
+The agent first calls lookup_plant() with the common name ("string of pearls"),
+which returns found: False. It then automatically tries the scientific name
+("Senecio rowleyanus") without being instructed to — also not found.
+
+After updating the not-found message and system prompt, the agent identified
+"string of pearls" as a succulent and made a third tool call: lookup_plant("succulent"),
+which succeeded. The final response used real database data while clearly
+telling the user it was general succulent guidance, not string-of-pearls-specific data.
 ```
 
 **One thing about the tool call API that surprised you:**
 
 ```
-[your answer here]
+The LLM made decisions we never explicitly coded. For example, it autonomously
+tried the scientific name as a second lookup attempt, and after the prompt update,
+it independently decided to look up "succulent" as a fallback. The tool call API
+doesn't just execute instructions — the LLM actively reasons about which tools
+to call and in what order based on context.
 ```
